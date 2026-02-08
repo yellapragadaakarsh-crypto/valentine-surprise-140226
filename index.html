@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Divija ❤️</title>
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      width: 380px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 10;
+    }
+
+    img.photo {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 300px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #ff2d55;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #noBtn {
+      background: gray;
+      position: fixed; /* fixed so it can move anywhere */
+      z-index: 9999;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    /* Falling roses */
+    .rose {
+      position: fixed;
+      top: -20px;
+      font-size: 22px;
+      animation: fall 6s linear infinite;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+
+    /* Subtitle animation */
+    .subtitle {
+      font-size: 20px;
+      color: red;
+      animation: fade 5s infinite alternate;
+    }
+    @keyframes fade {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    /* Cinematic intro text animation */
+    .fadeText {
+      animation: fadeIn 5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🎬 CINEMATIC INTRO -->
+<div id="cinemaIntro" style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:white;display:flex;align-items:center;justify-content:center;font-size:32px;text-align:center;z-index:9999;">
+  <div id="introText"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" style="display:none;">
+  <h1>Hi Divija ❤️</h1>
+  <p>Before the surprise, answer these questions 😘</p>
+
+  <div class="card" id="card">
+    <img src="akarsh-divija1.jpg" class="photo">
+    <h2 id="question">What’s your favorite thing about us?❤️</h2>
+    <input id="answer" placeholder="Type here..."><br><br>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+</div>
+
+<!-- Bollywood Music -->
+<audio id="bgMusic" loop>
+  <source src="ddlj.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+
+// 🎬 CINEMATIC INTRO TEXT
+const introLines = ["Click on the screen and enjoy what comes next...",
+  "Some people come into your life by chance...",
+  "But some become your destiny...",
+  "Divija, this is for you ❤️"
+];
+
+let introIndex = 0;
+const introDiv = document.getElementById("introText");
+const cinemaIntro = document.getElementById("cinemaIntro");
+
+// Function to show intro lines
+function showIntro() {
+  if (introIndex < introLines.length) {
+    introDiv.className = "";
+    void introDiv.offsetWidth; // restart animation
+    introDiv.className = "fadeText";
+    introDiv.innerHTML = introLines[introIndex];
+    introIndex++;
+    setTimeout(showIntro, 5000);
+  } else {
+    cinemaIntro.style.display = "none";          
+    document.getElementById("quiz").style.display = "block";
+  }
+}
+
+// ===============================
+// QUIZ LOGIC
+// ===============================
+let step = 0;
+let images = [
+  "akarsh-divija1.jpg",
+  "akarsh-divija3.jpg",
+  "akarsh-divija4.jpg"
+];
+
+let questions = [
+  "What is the first thing you want to visit after our marriage?",
+  "What do you love most when we are together alone? 😉",
+  "What is the first dish you will cook and feed me with your hands after marraige?❤️\nA) PAYASAM\nB) BIRYANI\nC) PAPPU AND GUTTI VANKAYA"
+];
+
+function nextQuestion() {
+  step++;
+  if (step < questions.length) {
+    document.getElementById("question").innerText = questions[step];
+    document.getElementById("answer").value = "";
+    let img = document.querySelector("#card img");
+    img.src = images[step];
+  } else {
+    showLoveQuestion();
+  }
+}
+
+// Show love question
+function showLoveQuestion() {
+  let card = document.getElementById("card");
+  card.innerHTML = `
+    <img src="akarsh-divija2.jpg" class="photo">
+    <h2>Do you love me? (Dare you to click NO if you can)😏💘</h2>
+    <button onclick="yes()">Accept defeat and click YES</button>
+    <button id="noBtn">NO</button>
+  `;
+
+  const noBtn = document.getElementById("noBtn");
+  noBtn.style.position = "fixed";
+
+  function moveNo() {
+    noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
+  }
+
+  noBtn.onmouseover = moveNo;
+  noBtn.ontouchstart = moveNo;
+}
+
+// Final page
+function yes() {
+  document.body.innerHTML = `
+    <div class="card">
+      <h2 class="subtitle">Tum meri ho, aur main sirf tumhara hoon ❤️</h2>
+      <p>Always keep smiling, and I’ll see you soon. 😘</p>
+      <h2>Happy Valentine’s Day Gummadi 💖❤️💘</h2>
+      <audio id="srkAudio" autoplay loop>
+        <source src="srk-dialogue.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  `;
+
+  // Play SRK audio in background
+  const srkAudio = document.getElementById("srkAudio");
+  srkAudio.volume = 0.4; // adjust volume
+  srkAudio.play().catch(() => {
+    document.body.addEventListener("click", () => srkAudio.play(), { once: true });
+  });
+}
+
+// Falling roses animation
+setInterval(() => {
+  let r = document.createElement("div");
+  r.className = "rose";
+  r.innerHTML = "🌹";
+  r.style.left = Math.random() * window.innerWidth + "px";
+  r.style.fontSize = (Math.random() * 20 + 15) + "px";
+  r.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(r);
+  setTimeout(() => r.remove(), 6000);
+}, 300);
+
+// ===============================
+// START CINEMATIC INTRO + FADE-IN BGM
+// ===============================
+window.onload = function() {
+  bgMusic.volume = 0;
+  const playPromise = bgMusic.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      let fadeDuration = 5000;
+      let interval = 50;
+      let steps = fadeDuration / interval;
+      let stepAmount = 1 / steps;
+      let currentVolume = 0;
+      const fadeInInterval = setInterval(() => {
+        currentVolume += stepAmount;
+        if (currentVolume >= 1) {
+          currentVolume = 1;
+          clearInterval(fadeInInterval);
+        }
+        bgMusic.volume = currentVolume;
+      }, interval);
+
+    }).catch(() => {
+      document.body.addEventListener("click", () => {
+        bgMusic.volume = 0;
+        bgMusic.play();
+        let fadeDuration = 5000;
+        let interval = 50;
+        let steps = fadeDuration / interval;
+        let stepAmount = 1 / steps;
+        let currentVolume = 0;
+        const fadeInInterval = setInterval(() => {
+          currentVolume += stepAmount;
+          if (currentVolume >= 1) {
+            currentVolume = 1;
+            clearInterval(fadeInInterval);
+          }
+          bgMusic.volume = currentVolume;
+        }, interval);
+      }, { once: true });
+    });
+  }
+
+  showIntro();
+};
+</script>
+
+</body>
+</html>
